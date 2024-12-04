@@ -10,4 +10,6 @@ public interface DataStructureInterface<T> {
     public boolean isEmpty();
 
     public void display();
+
+    public void clear();
 }

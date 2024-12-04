@@ -121,6 +121,12 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
     }
 
     @Override
+    public void clear() {
+        head = tail = null;
+        length = 0;
+    }
+
+    @Override
     public void display() {
         if (isEmpty()) {
             return;
@@ -163,5 +169,64 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
             System.out.println(list.removeStart());
         }
         list.display();
+
+        SinglyLinkedList<String> strList = new SinglyLinkedList<>();
+
+        // Test 1: Insert elements into the strList
+        System.out.println("Test 1: Insert Elements");
+        strList.insert("Alice");
+        strList.insert("Bob");
+        strList.insert("Charlie");
+        strList.insert("Alice"); // Duplicate
+        System.out.println("Expected size: 4, Actual size: " + strList.size());
+        System.out.println();
+
+        // Test 2: Search for elements
+        System.out.println("Test 2: Search for Elements");
+        System.out.println("Search 'Alice': " + (strList.search("Alice") ? "Found" : "Not Found"));
+        System.out.println("Search 'Eve': " + (strList.search("Eve") ? "Found" : "Not Found"));
+        System.out.println();
+
+        // Test 3: Remove the start element
+        System.out.println("Test 3: Remove Start Element");
+        String removedStart = strList.removeStart();
+        System.out.println("Removed: " + removedStart);
+        System.out.println("Expected size: 3, Actual size: " + strList.size());
+        System.out.println();
+
+        // Test 4: Remove the end element
+        System.out.println("Test 4: Remove End Element");
+        String removedEnd = strList.removeEnd();
+        System.out.println("Removed: " + removedEnd);
+        System.out.println("Expected size: 2, Actual size: " + strList.size());
+        System.out.println();
+
+        // Test 5: Remove the first occurrence of "Alice"
+        System.out.println("Test 5: Remove First Occurrence of 'Alice'");
+        String removedFirst = strList.removeFirst("Alice");
+        System.out.println("Removed 'Alice': " + (removedFirst != null ? "Yes" : "No"));
+        System.out.println("Expected size: 1, Actual size: " + strList.size());
+        System.out.println();
+
+        // Test 6: Remove a non-existing element
+        System.out.println("Test 6: Remove Non-Existing Element 'Eve'");
+        String removedNonExistent = strList.removeFirst("Eve");
+        System.out.println("Removed 'Eve': " + (removedNonExistent != null ? "Yes" : "No"));
+        System.out.println("Expected size: 1, Actual size: " + strList.size());
+        System.out.println();
+
+        // Test 7: Check behavior on an empty strList
+        System.out.println("Test 7: Remove All Elements and Test Empty List");
+        strList.removeStart(); // Remove the last element
+        System.out.println("Expected size: 0, Actual size: " + strList.size());
+        System.out.println("Remove from empty strList: ");
+        try {
+            strList.removeStart();
+        } catch (Exception e) {
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+        System.out.println();
     }
+
+    
 }
