@@ -1,84 +1,102 @@
 
-import java.util.LinkedList;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
-public class BSTree<T extends Comparable<T>> {
-
-    private BinaryNode<T> root = null;
+public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements DataStructureInterface<T> {
 
     public BSTree() {
     }
 
-    public BSTree(BinaryNode<T> root) {
-        this.root = root;
-    }
-
+    @Override
     public void insert(T value) {
+
         if (root == null) {
             root = new BinaryNode<>(value);
-        }
-        add(root, value);
-    }
-
-    public List<BinaryNode<T>> preOrderTraverse(List<BinaryNode<T>> result) {
-        BinaryNode<T> curr = root;
-        return result;
-    }
-
-    public List<T> inOrderTraverse() {
-        List<T> result = new LinkedList<>();
-        walkInOrder(root, result);
-        return result;
-    }
-
-    public List<BinaryNode<T>> postOrderTraverse(List<BinaryNode<T>> result) {
-        BinaryNode<T> curr = root;
-        return result;
-    }
-
-    // public List<T> BFTraverse() {
-    //     List<T> result = new LinkedList<>();
-    //     Queue<T> queue = new LinkedList<>();
-
-
-
-    //     return result;
-    // }
-
-    private void walkInOrder(BinaryNode<T> root, List<T> path) {
-        if (root == null) {
             return;
         }
-
-        walkInOrder(root.left, path);
-        path.add((T) root.value);
-        walkInOrder(root.right, path);
+        insertRec(root, value);
     }
 
-    private BinaryNode<T> add(BinaryNode<T> root, T value) {
-        if (root == null) {
-            return new BinaryNode<>(value);
-        }
-        if (value.compareTo((T) root.value) <= 0) {
-            root.left = add(root.left, value);
+    private void insertRec(BinaryNode<T> curr, T value) {
+        if (value.compareTo((T) curr.value) <= 0) {
+            if (curr.left == null) {
+                curr.left = new BinaryNode<>(value);
+            } else {
+                insertRec(curr.left, value);
+            }
         } else {
-            root.right = add(root.right, value);
+            if (curr.right == null) {
+                curr.right = new BinaryNode<>(value);
+            } else {
+                insertRec(curr.right, value);
+            }
         }
-        return null;
+    }
+
+    @Override
+    public boolean search(T needle) {
+        return DFSearchRec(root, needle);
+    }
+
+    private boolean DFSearchRec(BinaryNode<T> curr, T needle) {
+        if (curr == null) {
+            return false;
+        }
+        if (curr.value.equals(needle)) {
+            return true;
+        }
+        if (needle.compareTo(curr.value) < 0) {
+            return DFSearchRec(curr.left, needle);
+        } else {
+            return DFSearchRec(curr.right, needle);
+        }
+    }
+
+    @Override
+    public T removeFirst(T value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return (root == null);
+    }
+
+    @Override
+    public void display() {
+        List<BinaryNode<T>> list = traverse(TraversalOrder.IN);
+        for (BinaryNode<T> node : list) {
+            System.out.print(node.value + " ");
+        }
+        System.out.println();
+    }
+
+    @Override
+    public void clear() {
+        root = null;
     }
 
     public static void main(String[] args) {
         BSTree<Integer> tree = new BSTree<>();
         tree.insert(6);
+        tree.insert(4);
         tree.insert(5);
         tree.insert(11);
         tree.insert(3);
         tree.insert(15);
+        tree.insert(10);
+        tree.insert(2);
+        tree.insert(1);
+        tree.insert(13);
 
-        List<Integer> list = tree.inOrderTraverse();
-        for (Integer x : list) {
-            System.out.print(x + ", ");
+        tree.display();
+
+        for (BinaryNode<Integer> node : tree.traverse(TraversalOrder.PRE)) {
+            System.out.print(node.value + " ");
+        }
+        System.out.println();
+        for (BinaryNode<Integer> node : tree.traverse(TraversalOrder.POST)) {
+            System.out.print(node.value + " ");
         }
     }
+
 }

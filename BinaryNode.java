@@ -1,14 +1,18 @@
+
 public class BinaryNode<T> {
+
     public T value;
     public BinaryNode<T> left;
     public BinaryNode<T> right;
 
-    public BinaryNode(T val) {
-        this.value = val;
+    public BinaryNode(T value) {
+        this.value = value;
     }
 
-    public BinaryNode(T val, BinaryNode<T> left, BinaryNode<T> right) {
-        this.left = left;
+    public BinaryNode(T value, BinaryNode<T> left, BinaryNode<T> right) {
+        this.value = value;
         this.right = right;
+        this.left = left;
     }
+
 }

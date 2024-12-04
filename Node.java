@@ -1,7 +1,7 @@
 
 public abstract class Node<T> {
 
-    public T value;
+    protected T value;
 
     public Node(T value) {
         this.value = value;

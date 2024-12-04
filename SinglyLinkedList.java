@@ -24,8 +24,8 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
         if (tail == null) {
             head = tail = new SinglyNode<>(value);
         } else {
-            tail.next = new SinglyNode<>(value);
-            tail = tail.next;
+            tail.right = new SinglyNode<>(value);
+            tail = tail.right;
         }
         length++;
     }
@@ -37,11 +37,11 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
         }
 
         SinglyNode<T> curr = head;
-        while (curr.next != null) {
+        while (curr.right != null) {
             if (curr.value.equals(needle)) {
                 return true;
             }
-            curr = curr.next;
+            curr = curr.right;
         }
         return curr.value.equals(needle);
     }
@@ -53,7 +53,7 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
         }
 
         if (value.equals(head.value)) {
-            head = head.next;
+            head = head.right;
             if (head == null) {
                 tail = null;
             }
@@ -62,19 +62,19 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
         }
 
         SinglyNode<T> curr = head;
-        while (curr.next != null) {
-            if (value.equals(curr.next.value)) {
-                if (curr.next.next == null) {
-                    curr.next = null;
+        while (curr.right != null) {
+            if (value.equals(curr.right.value)) {
+                if (curr.right.right == null) {
+                    curr.right = null;
                     tail = curr;
 
                 } else {
-                    curr.next = curr.next.next;
+                    curr.right = curr.right.right;
                 }
                 length--;
                 return value;
             }
-            curr = curr.next;
+            curr = curr.right;
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
             return null;
         }
         T value = head.value;
-        head = head.next;
+        head = head.right;
         if (head == null) {
             tail = null;
         }
@@ -109,12 +109,12 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
         }
 
         SinglyNode<T> curr = head;
-        while (curr.next != tail) {
-            curr = curr.next;
+        while (curr.right != tail) {
+            curr = curr.right;
         }
         T value = tail.value;
         tail = curr;
-        tail.next = null;
+        tail.right = null;
 
         length--;
         return value;
@@ -132,9 +132,9 @@ public class SinglyLinkedList<T> implements DataStructureInterface<T> {
             return;
         }
         SinglyNode<T> curr = head;
-        while (curr.next != null) {
+        while (curr.right != null) {
             System.out.print(curr.value + " ");
-            curr = curr.next;
+            curr = curr.right;
         }
         System.out.println(curr.value);
     }

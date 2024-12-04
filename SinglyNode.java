@@ -1,15 +1,15 @@
 
 public class SinglyNode<T> extends Node<T> {
 
-    public SinglyNode<T> next;
+    public SinglyNode<T> right;
 
     public SinglyNode(T value) {
         super(value);
     }
 
-    public SinglyNode(T value, SinglyNode<T> next) {
+    public SinglyNode(T value, SinglyNode<T> right) {
         super(value);
-        this.next = next;
+        this.right = right;
     }
 
 }
