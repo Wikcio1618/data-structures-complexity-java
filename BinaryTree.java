@@ -37,7 +37,6 @@ public abstract class BinaryTree<T> {
                 traverseRec(curr.right, path, order);
             }
             case IN -> {
-                System.out.println("There");
                 traverseRec(curr.left, path, order);
                 path.add(curr);
                 traverseRec(curr.right, path, order);
