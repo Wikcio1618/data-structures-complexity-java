@@ -5,7 +5,7 @@ public interface DataStructureInterface<T> {
 
     public boolean search(T value);
 
-    public T removeFirst(T value);
+    public T deleteFirst(T value);
 
     public boolean isEmpty();
 

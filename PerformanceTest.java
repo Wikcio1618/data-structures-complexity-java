@@ -6,27 +6,27 @@ import java.util.Random;
 public class PerformanceTest {
 
     public static void main(String[] args) throws IOException {
-        SinglyLinkedList<Integer> ds = new SinglyLinkedList<>();
+        MinHeap<Double> ds = new MinHeap<>();
         Random random = new Random();
-        int reps = 1000;
+        int reps = 100_000;
         // Number of elements to test
-        int[] sizes = {10_000, 50_000, 100_000, 500_000, 1_000_000};
+        int[] sizes = {100_000, 50_0000, 100_000_00, 500_000_00, 1_000_000_00};
 
         
-            try (FileWriter writer = new FileWriter("times/singly_list.csv")) {
-                writer.write("N,insert(ms),search(ms),removeFirst(ms),removeStart(ms),removeEnd(ms),reps\n");
+            try (FileWriter writer = new FileWriter("times/min_heap.csv")) {
+                writer.write("N,insert(ms),search(ms),removeRoot(ms),reps\n");
 
                 for (int size : sizes) {
                     writer.write(size + ",");
 
                     ds.clear();
                     for (int i = 0; i < size; i++) {
-                        ds.insert(random.nextInt());
+                        ds.insert(random.nextDouble());
                     }
 
                     long startTime = System.currentTimeMillis();
                     for (int i = 0; i < reps; i++) {
-                        ds.insert(i);
+                        ds.insert(random.nextDouble());
                     }
                     long endTime = System.currentTimeMillis();
                     long elapsedTime = endTime - startTime;
@@ -34,20 +34,11 @@ public class PerformanceTest {
 // //////////////////////
                     ds.clear();
                     for (int i = 0; i < size; i++) {
-                        ds.insert(random.nextInt());
+                        ds.insert(random.nextDouble());
                     }
                     startTime = System.currentTimeMillis();
                     for (int i = 0; i < reps; i++) {
-                        ds.search(i);
-                    }
-                    endTime = System.currentTimeMillis();
-                    elapsedTime = endTime - startTime;
-                    writer.write(elapsedTime + ",");
-// //////////////////////
-
-                    startTime = System.currentTimeMillis();
-                    for (int i = 0; i < reps; i++) {
-                        ds.removeFirst(i);
+                        ds.search(random.nextDouble());
                     }
                     endTime = System.currentTimeMillis();
                     elapsedTime = endTime - startTime;
@@ -55,23 +46,11 @@ public class PerformanceTest {
 // //////////////////////
                     ds.clear();
                     for (int i = 0; i < size; i++) {
-                        ds.insert(random.nextInt());
+                        ds.insert(random.nextDouble());
                     }
                     startTime = System.currentTimeMillis();
                     for (int i = 0; i < reps; i++) {
-                        ds.removeStart();
-                    }
-                    endTime = System.currentTimeMillis();
-                    elapsedTime = endTime - startTime;
-                    writer.write(elapsedTime + ",");
-// //////////////////////
-                    ds.clear();
-                    for (int i = 0; i < size; i++) {
-                        ds.insert(random.nextInt());
-                    }
-                    startTime = System.currentTimeMillis();
-                    for (int i = 0; i < reps; i++) {
-                        ds.removeEnd();
+                        ds.removeRoot();
                     }
                     endTime = System.currentTimeMillis();
                     elapsedTime = endTime - startTime;

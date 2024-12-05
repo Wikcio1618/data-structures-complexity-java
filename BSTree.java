@@ -52,19 +52,19 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
     }
 
     @Override
-    public T removeFirst(T value) {
-        root = removeRec(root, value);
+    public T deleteFirst(T value) {
+        root = deleteRec(root, value);
         return root == null ? null : root.value;
     }
 
-    private BinaryNode<T> removeRec(BinaryNode<T> curr, T value) {
+    private BinaryNode<T> deleteRec(BinaryNode<T> curr, T value) {
         if (curr == null) {
             return null;
         }
         if (value.compareTo(curr.value) < 0) {
-            curr.left = removeRec(curr.left, value);
+            curr.left = deleteRec(curr.left, value);
         } else if (value.compareTo(curr.value) > 0) {
-            curr.right = removeRec(curr.right, value);
+            curr.right = deleteRec(curr.right, value);
         } else {
 
             if (curr.left == null) {
@@ -74,10 +74,27 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
             } else {
                 BinaryNode<T> predNode = findPredeccessor(curr);
                 curr.value = predNode.value;
-                curr.left = removeRec(curr.left, predNode.value);
+                curr.left = deleteRec(curr.left, predNode.value);
             }
         }
         return curr;
+    }
+
+    public int getHeight() {
+        if (root == null) {
+            return 0;
+        }
+        return heightRec(root, 1);
+    }
+
+    private int heightRec(BinaryNode<T> curr, int currHeight) {
+        if (curr == null) {
+            return currHeight - 1;
+        }
+        return Math.max(
+                heightRec(curr.left, currHeight + 1),
+                heightRec(curr.right, currHeight + 1)
+        );
     }
 
     private BinaryNode<T> findPredeccessor(BinaryNode<T> node) {
@@ -109,6 +126,7 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
     }
 
     public static void main(String[] args) {
+
         BSTree<Integer> tree = new BSTree<>();
         tree.insert(6);
         tree.insert(4);
@@ -122,6 +140,7 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
         tree.insert(13);
         System.out.println();
         tree.display();
+        System.out.println(tree.getHeight());
 
         // for (BinaryNode<Integer> node : tree.traverse(TraversalOrder.PRE)) {
         //     System.out.print(node.value + " ");
@@ -130,9 +149,12 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
         // for (BinaryNode<Integer> node : tree.traverse(TraversalOrder.POST)) {
         //     System.out.print(node.value + " ");
         // }
-        tree.removeFirst(6);
+        tree.deleteFirst(1);
+        System.out.println(tree.getHeight());
+        tree.deleteFirst(6);
+        System.out.println(tree.getHeight());
         tree.display();
-        
+
         tree.clear();
         tree.insert(50);
         tree.insert(30);
@@ -147,30 +169,30 @@ public class BSTree<T extends Comparable<T>> extends BinaryTree<T> implements Da
 
         // Test removal of a leaf node
         System.out.println("\nRemoving leaf node 20...");
-        tree.removeFirst(20);
+        tree.deleteFirst(20);
         tree.display(); // Expected: 30, 40, 50, 60, 70, 80
 
         // Test removal of a node with one child
         System.out.println("\nRemoving node with one child 30...");
-        tree.removeFirst(30);
+        tree.deleteFirst(30);
         tree.display(); // Expected: 40, 50, 60, 70, 80
 
         // Test removal of a node with two children
         System.out.println("\nRemoving node with two children 50...");
-        tree.removeFirst(50);
+        tree.deleteFirst(50);
         tree.display(); // Expected: 40, 60, 70, 80
 
         // Test removing a non-existent value
         System.out.println("\nRemoving non-existent node 100...");
-        tree.removeFirst(100);
+        tree.deleteFirst(100);
         tree.display(); // Expected: 40, 60, 70, 80 (unchanged)
 
         // Test removing all nodes
         System.out.println("\nRemoving all nodes...");
-        tree.removeFirst(40);
-        tree.removeFirst(60);
-        tree.removeFirst(70);
-        tree.removeFirst(80);
+        tree.deleteFirst(40);
+        tree.deleteFirst(60);
+        tree.deleteFirst(70);
+        tree.deleteFirst(80);
         tree.display(); // Expected: (empty tree)
     }
 

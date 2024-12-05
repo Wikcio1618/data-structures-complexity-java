@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public abstract class BinaryTree<T> {
 
-    BinaryNode<T> root;
+    protected BinaryNode<T> root;
 
     public enum TraversalOrder {
         PRE,
@@ -21,7 +21,7 @@ public abstract class BinaryTree<T> {
     public List<BinaryNode<T>> traverse(TraversalOrder order) {
         List<BinaryNode<T>> result = new ArrayList<>();
         traverseRec(root, result, order);
-        
+
         return result;
     }
 
@@ -29,7 +29,7 @@ public abstract class BinaryTree<T> {
         if (curr == null) {
             return;
         }
-        
+
         switch (order) {
             case PRE -> {
                 path.add(curr);
@@ -71,5 +71,9 @@ public abstract class BinaryTree<T> {
         }
 
         return result;
+    }
+
+    public BinaryNode<T> getRoot() {
+        return root;
     }
 }
