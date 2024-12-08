@@ -1,0 +1,5 @@
+N,quickbest(ms),quickrandom(ms),quickworst(ms),mergebest(ms),mergerandom(ms),mergeworst(ms),reps
+1000,21,1,9,2,1,1,100000
+2000,46,1,31,0,0,0,100000
+4000,32,1,31,1,1,0,100000
+8000,124,0,137,1,2,1,100000
