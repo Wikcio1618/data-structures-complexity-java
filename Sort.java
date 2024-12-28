@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Sort {
 
@@ -13,16 +12,16 @@ public class Sort {
             return;
         }
         T pivot = arr.get(hi);
-        int idx = lo-1;
-        for (int i = lo; i < hi-1; i++) {
+        int idx = lo - 1;
+        for (int i = lo; i < hi; i++) {
             if (arr.get(i).compareTo(pivot) <= 0) {
                 idx++;
                 swap(arr, i, idx);
-               
+
             }
         }
-        swap(arr, idx+1, hi);
-        
+        swap(arr, idx + 1, hi);
+
         quickRec(arr, lo, idx);
         quickRec(arr, idx + 2, hi);
     }
@@ -59,11 +58,10 @@ public class Sort {
         int i = 0;
         int j = 0;
         int k = l;
-        while(i < nl && j < nr) {
+        while (i < nl && j < nr) {
             if (L[i].compareTo(R[j]) <= 0) {
                 arr.set(k++, L[i++]);
-            }
-            else {
+            } else {
                 arr.set(k++, R[j++]);
             }
         }
@@ -73,7 +71,7 @@ public class Sort {
         while (j < nr) {
             arr.set(k++, R[j++]);
         }
-    }   
+    }
 
     private static <T> void swap(ArrayList<T> arr, int i, int j) {
         T temp = arr.get(i);
@@ -83,8 +81,7 @@ public class Sort {
 
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>();
-        Random random = new Random();
-        for (int i= 0 ; i < 20000; i++) {
+        for (int i = 0; i < 20; i++) {
             arr.add(i);
         }
         Sort.quickSort(arr);
